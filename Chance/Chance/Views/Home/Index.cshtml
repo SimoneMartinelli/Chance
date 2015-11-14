@@ -7,6 +7,7 @@
 <input type="radio" id="3" name="amount" value="2">
 
 <div>
+    <div id="notFound" style="display:none"><span id="missingCode"></span> not found.</div>
     <h2>
         Code
     </h2>
@@ -14,3 +15,19 @@
 </div>
     <input type="submit" />
 </form>
+
+<script>
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var param = getParameterByName("notFound");
+
+    if (param) {
+        document.getElementById("missingCode").innerText = param;
+        document.getElementById("notFound").setAttribute("style", "color: red");
+    }
+</script>

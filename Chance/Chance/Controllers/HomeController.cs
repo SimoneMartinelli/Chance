@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Chance.Storage;
 using System.Web.Mvc;
 
 namespace Chance.Controllers
 {
     public class HomeController : Controller
     {
+        private BuskerStore _store;
+
+        public HomeController()
+        {
+            _store = new BuskerStore();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -17,21 +21,16 @@ namespace Chance.Controllers
         [HttpPost]
         public ActionResult Index(decimal amount, string code)
         {
-
-            return View();
+            var busker = _store.get(code);
+            if (busker == null)
+            {
+                return RedirectToAction("Index", "Home", new { notFound = code });
+            }
+            return RedirectToAction("Thanks", "Home", new { code = code, amount = amount });
         }
 
-        public ActionResult About()
+        public ActionResult Thanks()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

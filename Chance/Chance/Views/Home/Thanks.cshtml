@@ -1,0 +1,18 @@
+﻿Thanks!
+
+You gave <span id="amount"></span> to <span id="code"></span>!
+
+<script>
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var code = getParameterByName("code");
+    var amount = getParameterByName("amount");
+
+    document.getElementById("code").innerText = code;
+    document.getElementById("amount").innerText = amount;
+</script>
