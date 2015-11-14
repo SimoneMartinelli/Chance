@@ -34,26 +34,43 @@ namespace Chance.Controllers
         [HttpPost]
         public ActionResult Index(decimal amount, string code)
         {
+            Session["amount"] = amount;
+            Session["code"] = code;
+            if(Session["customer"] == null)
+            {
+                return RedirectToAction("AddCard");
+            }
+
             var busker = _store.get(code);
             if (busker == null)
             {
                 return RedirectToAction("Index", "Home", new { notFound = code });
             }
 
-            new SimplifyCommerceService().MakePayment(Session["customer"] as Customer, amount);
+            Session["busker"] = busker;
 
             return RedirectToAction("Thanks", "Home", new { code = code, amount = amount });
         }
 
         public ActionResult Thanks()
         {
+            new SimplifyCommerceService().MakePayment(Session["customer"] as Customer, (decimal)Session["amount"]);
             return View();
         }
 
         [HttpGet]
-        public ActionResult AddCard()
+        public ActionResult AddCard(string cardToken, string name)
         {
-            return View();
+            if (string.IsNullOrWhiteSpace(cardToken))
+            {
+                return View();
+            }
+
+            Customer customer = _service.CreateCustomer(cardToken, name);
+
+            Session["customer"] = customer;
+
+            return RedirectToAction("Thanks", "Home", new { code=Session["code"], amount = Session["amount"]});
         }
     }
 }

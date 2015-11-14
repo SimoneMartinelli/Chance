@@ -1,7 +1,8 @@
 ﻿<script type="text/javascript" src="https://www.simplify.com/commerce/simplify.pay.js"></script>
 
 @* hide until price selected (keep hidden if card registered)*@
-@if (Session["customer"] == null) {
+@*@if (Session["customer"] == null)
+{
 <button data-sc-key="sbpb_MDllNDA0OTctZWFkYS00YjU4LThjNjQtNzlkOWRkNmYyOTdl"
         data-operation='create.token'
         data-redirect-url='http://localhost:61428/'
@@ -9,26 +10,47 @@
         data-color="#12B830">
     Add A Card
 </button>
-}
+}*@
 
-<form action="/" method="post" style="text-align:center" />
-<label class="button" for="1"><span class="labelcontent">50p</span></label>
-<input type="radio" id="1" name="amount" value="0.5" required>
-<label class="button" for="2"><span class="labelcontent">£1</span></label>
-<input type="radio" id="2" name="amount" value="1" required>
-<label class="button" for="3"><span class="labelcontent">£2</span></label>
-<input type="radio" id="3" name="amount" value="2" required>
+<h3 style="margin:auto;width:70%;text-align:center">
+    Have a heart; give to BHF.
+</h3>
+</div>
 <br>
 <div>
+</div>
+</br>
+
+<form action="/" method="post" style="text-align:center" />
+<label class="navbar navbar-default button" for="1"><span class="labelcontent">50p</span></label>
+<input type="radio" id="1" name="amount" value="0.5" required>
+<label class="navbar navbar-default button" for="2"><span class="labelcontent">£1</span></label>
+<input type="radio" id="2" name="amount" value="1" required>
+<label class="navbar navbar-default button" for="3"><span class="labelcontent">£2</span></label>
+<input type="radio" id="3" name="amount" value="2" required>
+
+<div>
     <div id="notFound" style="display:none"><span id="missingCode"></span> not found.</div>
-    <h2 style="margin:auto;width:70%;">
-        Confirm donation
-    </h2>
-    <input name="code" required/>
 </div>
 <br>
 
-<input type="submit" />
+
+<br>
+<h2>
+    ID number
+</h2>
+<div>
+</div>
+</br>
+
+<div class="col-lg-4">
+    <div class="input-group" input name="code" />
+    <input name="code" type="text" class="form-control" placeholder="i.e.(TH12)" required>
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Go!</button>
+    </span>
+</div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
 </form>
 </body>
 
@@ -56,8 +78,10 @@
 <script>
 
   var setTab = function(event){
-    $(".button").css("background-color", "white");
-    $(event.toElement).css("background-color", "blue");
+      $(".button").css("background-color", "white");
+      $(".button").css("border-color", "white");
+    $(event.toElement).css("background-color", "#cccccc");
+    $(event.toElement).css("border-color", "#737373");
   }
   buttons = $(".button");
   buttons.click(setTab);

@@ -137,6 +137,8 @@
     <Compile Include="Storage\IStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\backg.jpg" />
+    <Content Include="Assets\brand.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

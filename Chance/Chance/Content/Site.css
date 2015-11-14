@@ -1,12 +1,13 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    font-size:14pt;
+}
+
+h1, h2, .body-content{
+    font-family:sans-serif;
+    font-weight:bold;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +22,40 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+  body {
+    background-image: url("../Assets/backg.jpg");
+    background-repeat: no;
+  }
+  label{
+    border:1px solid black;
+    height:60px;
+    width:70px;
+    border-radius:10px;
+    z-index:3;
+  }
+  
+  label .labelcontent{
+    position:relative;
+    top:8px;
+    font-size: 30px;
+    z-index:1;
+  }
+  
+  input[type="radio"]{
+    visibility:hidden;
+  }
+  
+#simplify-checkout-embed-frame {
+    border: none;
+    height: 375px;
+    overflow: hidden;
+    width:375px;
+    position: absolute;
+    
+}
+img.logo{
+    width:540px; /* you can use % */
+    height: auto;
 }
