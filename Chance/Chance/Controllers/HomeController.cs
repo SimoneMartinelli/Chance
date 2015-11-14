@@ -26,6 +26,9 @@ namespace Chance.Controllers
             {
                 return RedirectToAction("Index", "Home", new { notFound = code });
             }
+
+            new Services.SimplifyCommerceService().Test();
+
             return RedirectToAction("Thanks", "Home", new { code = code, amount = amount });
         }
 

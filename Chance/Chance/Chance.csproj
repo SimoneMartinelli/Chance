@@ -49,6 +49,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimplifySDK">
+      <HintPath>..\packages\SimplifyCommerce\SimplifySDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -125,6 +128,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SimplifyCommerceService.cs" />
     <Compile Include="Storage\Busker.cs" />
     <Compile Include="Storage\BuskerStore.cs" />
     <Compile Include="Storage\IStorable.cs" />
