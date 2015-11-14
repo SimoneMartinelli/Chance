@@ -1,59 +1,15 @@
-﻿@*<form action="/" method="post" />
-<label for="1">50p</label>
-<input type="radio" id="1" name="amount" value="0.5">
-<label for="2">£1</label>
-<input type="radio" id="2" name="amount" value="1">
-<label for="3">£2</label>
-<input type="radio" id="3" name="amount" value="2">
+﻿<script type="text/javascript" src="https://www.simplify.com/commerce/simplify.pay.js"></script>
 
-<div>
-    <div id="notFound" style="display:none"><span id="missingCode"></span> not found.</div>
-    <h2>
-        Code
-    </h2>
-    <input name="code"/>
-</div>
-    <input type="submit" />
-</form>
-
-<script>
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-
-    var param = getParameterByName("notFound");
-
-    if (param) {
-        document.getElementById("missingCode").innerText = param;
-        document.getElementById("notFound").setAttribute("style", "color: red");
-    }
-</script>*@
-
-
-
-<!--<div class="row">
-  <div class="col-xs-3 col-md-3">
-    <a href="#" class="thumbnail">
-      <img src="file:///Users/apple/Desktop/Chance/Images/05pound.png" alt="...">
-    </a>
-  </div>
-<div class="row">
-  <div class="col-xs-3 col-md-3">
-    <a href="#" class="thumbnail">
-      <img src="file:///Users/apple/Desktop/Chance/Images/1pound.png" alt="...">
-    </a>
-  </div>
-
-<div class="row">
-  <div class="col-xs-3 col-md-3">
-    <a href="#" class="thumbnail">
-      <img src="file:///Users/apple/Desktop/Chance/Images/2pound.png" alt="...">
-    </a>
-  </div>
-</div>-->
+@* hide until price selected (keep hidden if card registered)*@
+@if (Session["customer"] == null) {
+<button data-sc-key="sbpb_MDllNDA0OTctZWFkYS00YjU4LThjNjQtNzlkOWRkNmYyOTdl"
+        data-operation='create.token'
+        data-redirect-url='http://localhost:61428/'
+        data-submit-label='Register Card'
+        data-color="#12B830">
+    Add A Card
+</button>
+}
 
 <form action="/" method="post" style="text-align:center" />
 <label class="button" for="1"><span class="labelcontent">50p</span></label>
