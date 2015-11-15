@@ -1,4 +1,5 @@
-﻿using Chance.Services;
+﻿using Chance.Models;
+using Chance.Services;
 using Chance.Storage;
 using SimplifyCommerce.Payments;
 using System.Web.Mvc;
@@ -7,14 +8,10 @@ namespace Chance.Controllers
 {
     public class HomeController : Controller
     {
-        private BuskerStore _store;
-        private CustomerStore _customerStore;
         private SimplifyCommerceService _service;
 
         public HomeController()
         {
-            _store = new BuskerStore();
-            _customerStore = new CustomerStore();
             _service = new SimplifyCommerceService();
         }
 
@@ -36,26 +33,29 @@ namespace Chance.Controllers
         {
             Session["amount"] = amount;
             Session["code"] = code;
-            if(Session["customer"] == null)
-            {
-                return RedirectToAction("AddCard");
-            }
+            var beneficiary = StorageSingletons.BeneficiaryStore.get(code);
+            Session["beneficiary"] = beneficiary;
 
-            var busker = _store.get(code);
-            if (busker == null)
+            if (beneficiary == null)
             {
                 return RedirectToAction("Index", "Home", new { notFound = code });
             }
 
-            Session["busker"] = busker;
+            if (Session["customer"] == null)
+            {
+                return RedirectToAction("AddCard");
+            }
 
             return RedirectToAction("Thanks", "Home", new { code = code, amount = amount });
         }
 
-        public ActionResult Thanks()
+        public ActionResult Thanks(string code, decimal amount)
         {
-            new SimplifyCommerceService().MakePayment(Session["customer"] as Customer, (decimal)Session["amount"]);
-            return View();
+            new SimplifyCommerceService().MakePayment(Session["customer"] as Customer, (decimal)Session["amount"],  Session["beneficiary"] as Beneficiary);
+
+            var donation = new Donation(code, amount);
+
+            return View(donation);
         }
 
         [HttpGet]
@@ -70,7 +70,20 @@ namespace Chance.Controllers
 
             Session["customer"] = customer;
 
-            return RedirectToAction("Thanks", "Home", new { code=Session["code"], amount = Session["amount"]});
+            return RedirectToAction("Thanks", "Home", new { code = Session["code"], amount = Session["amount"] });
+        }
+
+        [HttpGet]
+        public ActionResult Beneficiary(int id)
+        {
+            var beneficiary = StorageSingletons.BeneficiaryStore.get(id);
+
+            if (id == 0 || beneficiary == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            return View(beneficiary);
         }
     }
 }

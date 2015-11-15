@@ -31,9 +31,9 @@ namespace Chance.Storage
         {
             if (_codes.ContainsKey(code))
             {
-                CustomerWrapper busker;
-                _customers.TryGetValue(_codes[code], out busker);
-                return busker;
+                CustomerWrapper beneficiary;
+                _customers.TryGetValue(_codes[code], out beneficiary);
+                return beneficiary;
             }
 
             return null;

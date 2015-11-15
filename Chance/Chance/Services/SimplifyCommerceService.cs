@@ -1,5 +1,6 @@
 ﻿using System;
 using SimplifyCommerce.Payments;
+using Chance.Storage;
 
 namespace Chance.Services
 {
@@ -15,13 +16,13 @@ namespace Chance.Services
             PaymentsApi.PrivateApiKey = "0mGscVpVCqrGTNQD/yIYRei75eyUxPr+CRqv7ce9Zzx5YFFQL0ODSXAOkNtXTToq";
         }
 
-        public void MakePayment(Customer customer, decimal amount)
+        public void MakePayment(Customer customer, decimal amount, Beneficiary beneficiary)
         {
             Payment payment = new Payment();
             payment.Amount = (int) (amount * 100);
             payment.Currency = "GBP";
             payment.Description = "payment description";
-            payment.Reference = "7a6ef6be31";
+            payment.Reference = beneficiary.Name;
             payment.Customer = customer;
 
             payment = (Payment)_api.Create(payment);
@@ -29,9 +30,6 @@ namespace Chance.Services
 
         public Customer CreateCustomer(string cardToken, string name)
         {
-            PaymentsApi.PublicApiKey = "sbpb_MDllNDA0OTctZWFkYS00YjU4LThjNjQtNzlkOWRkNmYyOTdl";
-            PaymentsApi.PrivateApiKey = "0mGscVpVCqrGTNQD/yIYRei75eyUxPr+CRqv7ce9Zzx5YFFQL0ODSXAOkNtXTToq";
-
             Customer customer = new Customer();
             customer.Email = "customer@mastercard.com";
             customer.Name = name;

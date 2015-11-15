@@ -1,18 +1,24 @@
-﻿Thanks!
+﻿@using Chance.Models;
+@model Donation
 
-You gave <span id="amount"></span> to <span id="code"></span>!
+Thanks!
 
+You gave @Model.Amount.ToString() to @Html.ActionLink(Model.Beneficiary.Name, "Beneficiary", "Home", new { id = Model.Beneficiary.Id }, null)!
+
+<h3><em>Optional</em></h3>
+<textarea placeholder="Why did you give?"></textarea>
 <script>
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-
-    var code = getParameterByName("code");
-    var amount = getParameterByName("amount");
-
-    document.getElementById("code").innerText = code;
-    document.getElementById("amount").innerText = amount;
+(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
+
+<!-- Your share button code -->
+<div class="fb-share-button"
+     data-href="http://www.your-domain.com/your-page.html"
+     data-layout="button_count">
+</div>
